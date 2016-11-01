@@ -1,0 +1,158 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
+
+        <!-- Load in Bootstrap CDN -->
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+        <!-- Place favicon.ico in the root directory -->
+
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Main jumbotron for a primary marketing message or call to action -->
+        <div class="jumbotron">
+          <div class="container">
+            <h2 class="text-center">914 Pacific Street Temperature and Humidity</h2>
+            <h3 class="text-center"><span id=pitime></span></h3>
+          </div>
+        </div>
+
+        <div class="container">
+          <!-- Example row of columns -->
+          <div class="row">
+            <div class="col-md-2">
+              <span class="text-center"></span>
+            </div>
+            <div class="col-md-5 text-center">
+              <h3>Temperature</h3>
+            </div>
+            <div class="col-md-5 text-center">
+              <h3>Humidity</h3>
+            </div>
+           </div>
+          <div class="row">
+            <div class="col-md-2 text-right">
+              <h3>Room</h3>
+            </div>
+            <div class="col-md-5 text-center">
+              <h2><span id='temp_value'>{{ "{:0.2f}\u00b0".format(fahrenheit) }}</span></h2>
+            </div>
+            <div class="col-md-5 text-center">
+              <h2><span id='temp_humi'>{{ "{:0.2f}%".format(humid) }}</span></h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2 text-right">
+              <h3>Room1</h3>
+            </div>
+            <div class="col-md-5 text-center">
+              <h2><span id='temp_value1'>{{ "{:0.2f}\u00b0".format(fahrenheit1) }}</span></h2>
+            </div>
+            <div class="col-md-5 text-center">
+              <h2><span id='temp_humi1'>{{ "{:0.2f}%".format(humid1) }}</span></h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2 text-right">
+              <h3>Room2</h3>
+            </div>
+            <div class="col-md-5 text-center">
+              <h2><span id='temp_value2'>{{ "{:0.2f}\u00b0".format(fahrenheit2) }}</span></h2>
+            </div>
+            <div class="col-md-5 text-center">
+              <h2><span id='temp_humi2'>{{ "{:0.2f}%".format(humid2) }}</span></h2>
+            </div>
+          </div>
+        </div>
+
+          <div class="container">
+            <!-- Example row of columns -->
+            <div class="row">
+              <div class="col-md-12">
+                <h2 class="text-center text-primary">!</h2>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <h2 class="text-center"></h2>
+              </div>
+              <div class="col-md-4">
+                <audio controls src="http://fm939.wnyc.org/wnycfm"></audio>
+              </div>
+              <div class="col-md-4">
+                <h2 class="text-center"></h2>
+              </div>
+            </div>
+          </div>
+
+          <script>
+            $(document).ready(function() {
+
+              function updateTempHumi(temphumid) {
+                console.log('Temp F: ' + temphumid.fahrenheit);
+                console.log('Humidity: ' + temphumid.humidity);
+                console.log('Temp1 F: ' + temphumid.fahrenheit1);
+                console.log('Humidity1: ' + temphumid.humidity1);
+                console.log('Temp2 F: ' + temphumid.fahrenheit2);
+                console.log('Humidity2: ' + temphumid.humidity2);
+                if (temphumid.humidity > 0) {
+                    $('#temp_value').text(temphumid.fahrenheit.toFixed(2).concat('\xB0'));
+                    $('#temp_humi').text(temphumid.humidity.toFixed(2).concat("%"));
+                } else {
+                    $('#temp_value').text("Offline");
+                    $('#temp_humi').text("Offline");
+                }
+                if (temphumid.humidity1 > 0) {
+                    $('#temp_value1').text(temphumid.fahrenheit1.concat('\xB0'));
+                    $('#temp_humi1').text(temphumid.humidity1.concat("%"));
+                } else {
+                    $('#temp_value1').text("Offline");
+                    $('#temp_humi1').text("Offline");
+                }
+                if (temphumid.humidity2 > 0) {
+                    $('#temp_value2').text(temphumid.fahrenheit2.concat('\xB0'));
+                    $('#temp_humi2').text(temphumid.humidity2.concat("%"));
+                } else {
+                    $('#temp_value2').text("Offline");
+                    $('#temp_humi2').text("Offline");
+                }
+                updateTime();
+              }
+
+              function updateTime() {
+                var piTime = (new Date).getTime();
+                var options = { year: "2-digit", month: "2-digit", day: "2-digit",
+                hour: "2-digit", minute: "2-digit", second: "2-digit" };
+                var americanDateTime = new Intl.DateTimeFormat("en-US", options).format;
+                console.log('Time: ' + americanDateTime(piTime));
+                $('#pitime').text(americanDateTime(piTime));
+              }
+
+              var t_h_Source = new EventSource("{{ url_for('temphumi') }}");
+              t_h_Source.onmessage = function(e) {
+              updateTempHumi($.parseJSON(e.data));
+              }
+
+
+            });
+          </script>
+</html>
